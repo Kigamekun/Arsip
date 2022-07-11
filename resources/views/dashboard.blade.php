@@ -1,26 +1,21 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.base')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                </div>
+@section('content')
+    @if (Auth::user()->role == 0)
+
+    @else
+        <div class="container">
+
+            <div class="card p-5">
+                <form action="{{ route('cari-surat') }}" method="get">
+                    <center>
+                        <h4>Cari No Surat</h4>
+                        <input type="text" name="search" class="form-control" id="search">
+                        <br>
+                        <button class="btn btn-primary">Submit</button>
+                    </center>
+                </form>
             </div>
         </div>
-    </div>
-
-
-    <div class="container">
-
-        <form action="{{ route('cari-surat') }}" method="get">
-            <input type="text" name="search" id="search">
-            <button class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-</x-app-layout>
+    @endif
+@endsection

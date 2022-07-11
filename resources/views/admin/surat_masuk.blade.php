@@ -18,13 +18,13 @@
         <div class="row">
             <div class="d-flex justify-content-end">
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createData">
-                    Create surat_masuk
+                    Create Surat Masuk
                 </button>
             </div>
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>surat_masuk table</h6>
+                        <h6>Surat Masuk table</h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive  p-5">
@@ -38,7 +38,7 @@
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Tanggal</th>
-                                            <th
+                                        <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Perihal</th>
                                         <th class="text-secondary opacity-7">Action</th>
@@ -50,7 +50,18 @@
                                             <td class="align-middle ">
                                                 <span class="text-secondary text-xs ms-3 font-weight-bold">
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                        data-bs-target="#surat_masuk" data-id="{{ $item->id }}">
+                                                        data-bs-target="#detailData"
+
+                                                        data-id="{{ $item->id }}"
+                                                        data-kode_surat="{{ $item->kode_surat }}"
+                                                        data-tanggal="{{ $item->tanggal }}"
+                                                        data-no_urut="{{ $item->no_urut }}"
+                                                        data-perihal="{{ $item->perihal }}"
+                                                        data-kepada="{{ $item->kepada }}"
+                                                        data-pengirim="{{ $item->pengirim }}"
+                                                        data-perihal="{{ $item->perihal }}"
+                                                        data-file="{{ url('file/' . $item->file) }}"
+                                                        >
                                                         {{ $item->kode_surat }}
                                                     </button>
                                                 </span>
@@ -73,20 +84,18 @@
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="#updateData" data-id="{{ $item->id }}"
                                                     data-kepada="{{ $item->kepada }}"
-
                                                     data-pengirim="{{ $item->pengirim }}"
                                                     data-perihal="{{ $item->perihal }}"
-                                                    data-file="{{ url('file/'.$item->file) }}"
-
+                                                    data-file="{{ url('file/' . $item->file) }}"
                                                     data-url="{{ route('admin.surat_masuk.update', ['id' => $item->id]) }}">
                                                     Update
                                                 </button>
                                                 <a class="btn btn-danger"
                                                     href="{{ route('admin.surat_masuk.delete', ['id' => $item->id]) }}">Hapus</a>
-                                                    <a class="btn btn-warning"
+                                                <a class="btn btn-warning"
                                                     href="{{ route('admin.surat_masuk.download', ['id' => $item->id]) }}">Download</a>
 
-                                                </td>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -111,6 +120,8 @@
             </div>
         </div>
     </div>
+
+
 
 
     <!-- Modal -->
@@ -153,7 +164,7 @@
                             <select name="operator" id="operator" class="form-select">
                                 <option value="" selected>Select operator Product</option>
                                 @foreach (DB::table('users')->get() as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -175,6 +186,18 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="detailData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="detailDataLabel" aria-hidden="true">
+        <div class="modal-dialog" id="updateDialog">
+            <div id="modal-detail" class="modal-content">
+                <div class="modal-body">
+                    Loading..
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -186,74 +209,14 @@
     <script>
         $('.dropify').dropify();
     </script>
-
-
-
+    >
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        $('#updateData').on('shown.bs.modal', function(e) {
-            var html = `
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Edit Data Karyawaan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="${$(e.relatedTarget).data('url')}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                    <div class="mb-3">
-                            <label for="kepada" class="form-label">kepada</label>
-                            <input type="text" class="form-control" id="kepada" name="kepada"
-                                placeholder="isi kepada" value="${$(e.relatedTarget).data('kepada')}">
-                        </div>
-
-
-                        <div class="mb-3">
-                            <label for="pengirim" class="form-label">pengirim</label>
-                            <input type="text" class="form-control" id="pengirim" name="pengirim"
-                                placeholder="isi pengirim" value="${$(e.relatedTarget).data('pengirim')}">
-                        </div>
-
-
-
-                        <div class="mb-3">
-                            <label for="perihal" class="form-label">perihal</label>
-                            <textarea name="perihal" id="" cols="30" rows="10" class="form-control">${$(e.relatedTarget).data('perihal')}</textarea>
-                        </div>
-
-
-
-
-                        <div class="mb-3">
-                            <label for="file" class="form-label">file</label>
-                            <input type="file" class="form-control dropify" id="file" data-default-file="${$(e.relatedTarget).data('file')}" name="file"
-                                placeholder="isi file">
-                        </div>
-
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-                `;
-
-            $('#modal-content').html(html);
-            $('.dropify').dropify();
-
+        $(document).ready(function() {
+            $('#example').DataTable();
         });
     </script>
 
-
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-    $('#example').DataTable();
-});
-</script>
 @endsection

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 08, 2022 at 10:48 AM
+-- Generation Time: Jul 11, 2022 at 07:52 AM
 -- Server version: 8.0.27-0ubuntu0.21.04.1
 -- PHP Version: 7.4.27
 
@@ -117,12 +117,8 @@ CREATE TABLE `surat` (
 --
 
 INSERT INTO `surat` (`id`, `kode_surat`, `no_urut`, `tanggal`, `perihal`, `kepada`, `pengirim`, `file`, `type`, `operator`, `created_at`, `updated_at`) VALUES
-(1, 'asdsa', NULL, '2022-07-06', 'dasdsa', 'dasd', 'asdsa', '1657249047-product2.png', 1, 1, NULL, NULL),
-(3, '/PA/SPn/P2/VII/2022', NULL, NULL, 'Atque quas ab et aut', 'Est officia reprehe', 'Enim unde mollit tem', NULL, 1, 1, NULL, NULL),
-(4, '/PA/SPn/P2/VII/2022', 4, NULL, 'Atque quas ab et aut', 'Est officia reprehe', 'Enim unde mollit tem', NULL, 1, 1, NULL, NULL),
-(5, '/PA/SPn/P2/VII/2022', 5, '2022-07-04', 'Voluptas fuga Omnis', 'Amet dolore molesti', 'Amet laborum Proid', NULL, 1, 1, NULL, NULL),
-(6, '/PA/SPn/P2/VII/2022', 6, '2022-07-08', 'Aut et voluptatem a', 'Maiores eos architec', 'Unde veniam eiusmod', '1657249047-product2.png', 1, 2, NULL, NULL),
-(7, 'PA/SPn/P2/VII/20221657250723', 7, '2022-07-08', 'Voluptate qui et ad', 'Dolores excepteur es', 'Eius quibusdam sint', '1657250723-product1.png', 0, 1, NULL, NULL);
+(1, 'PA/SPn/P2/VII/20221657500414', 1, '2022-07-11', 'Ekspor tanaman ke negara austria dengan berat barang 1 kg dan minimal waktu pengiriman 3 hari', 'Surat Invoice Ekspor Tanaman', 'Reksa Prayoga S', '1657500414-Invoice3_PA_SPn_P2_VI_2022.pdf', 1, 2, NULL, NULL),
+(2, 'PA/SPn/P2/VII/20221657500477', 2, '2022-07-11', 'Tanaman telah terekspor', 'Ajat Supriatna', 'Surat Keluar Ekspor Tanaman', '1657500477-Invoice37_PA_SPm_P1_II_2022.pdf', 0, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -134,7 +130,7 @@ CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` int NOT NULL DEFAULT '0',
+  `role` int NOT NULL DEFAULT '1',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -147,8 +143,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Lareina Roy', 'gicudyb@mailinator.com', 0, NULL, '$2y$10$YqUR55J7eTu7boHvBnUMpOg56BXLuMp2xH24GaYC6JXU8GvkO6eZK', NULL, '2022-07-04 10:24:32', '2022-07-04 10:24:32'),
-(2, 'Armand Chang', 'daba@mailinator.com', 0, NULL, '$2y$10$XT2K53s5ZYZ3tTu8rkXnNOxvjNa3i3P1zO7/Gho20kUYitCkzRLTO', NULL, '2022-07-07 19:36:20', '2022-07-07 19:36:20');
+(2, 'Admin', 'admin@gmail.com', 0, NULL, '$2y$10$jtUMVNLOXlTOtoLBfaQ5g.ak9H2Wbw3uacwdbbNhHbLUIxvrebiXu', NULL, '2022-07-10 17:45:28', '2022-07-10 17:45:28');
 
 --
 -- Indexes for dumped tables
@@ -221,7 +216,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `surat`
 --
 ALTER TABLE `surat`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

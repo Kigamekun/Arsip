@@ -88,7 +88,7 @@ class SuratMasukController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        $array_bln	= array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
 
         if ($request->hasFile('thumb')) {
             $file = $request->file('thumb');
@@ -102,7 +102,6 @@ class SuratMasukController extends Controller
                 'tanggal' => Carbon::now()->toDateString('Y-m-d'),
                 'file' => $thumbname,
                 'type' => 1,
-                'operator' => $request->operator,
             ]);
         }else {
             DB::table('surat')->where('id',$id)->update([
@@ -112,7 +111,6 @@ class SuratMasukController extends Controller
                 'perihal' => $request->perihal,
                 'tanggal' => Carbon::now()->toDateString('Y-m-d'),
                 'type' => 1,
-                'operator' => $request->operator,
             ]);
         }
 

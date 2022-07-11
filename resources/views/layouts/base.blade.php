@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ url('assets/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ url('assets/img/favicon.png') }}">
     <title>
-        Kiga Store
+        ARSIP APP
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -41,7 +41,7 @@
             <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html "
                 target="_blank">
                 <img src="{{ url('assets/img/logo-ct-dark.png') }}" class="navbar-brand-img h-100" alt="main_logo">
-                <span class="ms-1 font-weight-bold">Kiga Store </span>
+                <span class="ms-1 font-weight-bold">Arsip APP </span>
             </a>
         </div>
         <hr class="horizontal dark mt-0">
@@ -81,15 +81,6 @@
                 </li>
                 @else
 
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('cari-surat') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-
-                        </div>
-                        <span class="nav-link-text ms-1">Cari Surat </span>
-                    </a>
-                </li>
                 @endif
 
                 <li class="nav-item">
@@ -157,6 +148,106 @@
 
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $('#detailData').on('shown.bs.modal', function(e) {
+            var html = `
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Detail Surat Masuk</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div style="overflow-x:auto;">
+                    <table class="table">
+                    <tr>
+                        <td>KODE SURAT</td>
+                        <td>${$(e.relatedTarget).data('kode_surat')}</td>
+                    </tr>
+                    <tr>
+                        <td>NO URUT</td>
+                        <td>${$(e.relatedTarget).data('no_urut')}</td>
+                    </tr>
+                    <tr>
+                        <td>TANGGAL</td>
+                        <td>${$(e.relatedTarget).data('tanggal')}</td>
+                    </tr>
+                    <tr>
+                        <td>PERIHAL</td>
+                        <td>${$(e.relatedTarget).data('perihal')}</td>
+                    </tr>
+                    <tr>
+                        <td>KEPADA</td>
+                        <td>${$(e.relatedTarget).data('kepada')}</td>
+                    </tr>
+                    <tr>
+                        <td>PENGIRIM</td>
+                        <td>${$(e.relatedTarget).data('pengirim')}</td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+            `;
+
+            $('#modal-detail').html(html);
+            $('.dropify').dropify();
+
+        });
+    </script>
+    <script>
+        $('#updateData').on('shown.bs.modal', function(e) {
+            var html = `
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Edit Data Surat</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="${$(e.relatedTarget).data('url')}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                    <div class="mb-3">
+                            <label for="kepada" class="form-label">kepada</label>
+                            <input type="text" class="form-control" id="kepada" name="kepada"
+                                placeholder="isi kepada" value="${$(e.relatedTarget).data('kepada')}">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="pengirim" class="form-label">pengirim</label>
+                            <input type="text" class="form-control" id="pengirim" name="pengirim"
+                                placeholder="isi pengirim" value="${$(e.relatedTarget).data('pengirim')}">
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <label for="perihal" class="form-label">perihal</label>
+                            <textarea name="perihal" id="" cols="30" rows="10" class="form-control">${$(e.relatedTarget).data('perihal')}</textarea>
+                        </div>
+
+
+
+
+                        <div class="mb-3">
+                            <label for="file" class="form-label">file</label>
+                            <input type="file" class="form-control dropify" id="file" data-default-file="${$(e.relatedTarget).data('file')}" name="file"
+                                placeholder="isi file">
+                        </div>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+                `;
+
+            $('#modal-content').html(html);
+            $('.dropify').dropify();
+
+        });
+    </script>
     @if (Session::has('message'))
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>

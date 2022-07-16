@@ -19,13 +19,13 @@
         <div class="row">
             <div class="d-flex justify-content-end">
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createData">
-                    Create surat_keluar
+                    Buat Surat Keluar
                 </button>
             </div>
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>surat_keluar table</h6>
+                        <h6>Tabel Surat Keluar</h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-5">
@@ -90,10 +90,10 @@
                                                     data-file="{{ url('file/'.$item->file) }}"
 
                                                     data-url="{{ route('admin.surat_keluar.update', ['id' => $item->id]) }}">
-                                                    Update
+                                                    Edit
                                                 </button>
                                                 <a class="btn btn-danger"
-                                                    href="{{ route('admin.surat_keluar.delete', ['id' => $item->id]) }}">Hapus</a>
+                                                    href="{{ route('admin.surat_keluar.delete', ['id' => $item->id]) }}">Delete</a>
                                                     <a class="btn btn-warning"
                                                     href="{{ route('admin.surat_keluar.download', ['id' => $item->id]) }}">Download</a>
 

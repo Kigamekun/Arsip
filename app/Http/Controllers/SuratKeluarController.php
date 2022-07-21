@@ -43,7 +43,7 @@ class SuratKeluarController extends Controller
             $thumbname = time() . '-' . $file->getClientOriginalName();
             $file->move(public_path() . '/file' . '/', $thumbname);
             $data = DB::table('surat')->insertGetId([
-                'kode_surat' => 'PA/SPn/P2/'.$array_bln[date('n')].'/'.date('Y').Carbon::now()->timestamp,
+                'kode_surat' => 'BOGORSELATAN/'.$array_bln[date('n')].'/'.date('Y'),
                 'kepada' => $request->kepada,
                 'pengirim' => $request->pengirim,
                 'perihal' => $request->perihal,
@@ -54,7 +54,7 @@ class SuratKeluarController extends Controller
             ]);
         }else {
             $data = DB::table('surat')->insertGetId([
-                'kode_surat' => '/PA/SPn/P2/'.$array_bln[date('n')].'/'.date('Y').Carbon::now()->timestamp,
+                'kode_surat' => 'BOGORSELATAN/'.$array_bln[date('n')].'/'.date('Y'),
                 'kepada' => $request->kepada,
                 'pengirim' => $request->pengirim,
                 'perihal' => $request->perihal,
@@ -66,7 +66,8 @@ class SuratKeluarController extends Controller
 
 
         DB::table('surat')->where('id',$data)->update([
-            'no_urut'=>$data
+            'no_urut'=>$data,
+            'kode_surat' => $data.'/'.'BOGORSELATAN/'.date('Y'),
         ]);
 
 
@@ -95,7 +96,6 @@ class SuratKeluarController extends Controller
             $thumbname = time() . '-' . $file->getClientOriginalName();
             $file->move(public_path() . '/thumb' . '/', $thumbname);
             DB::table('surat')->where('id',$id)->update([
-                'kode_surat' => 'PA/SPn/P2/'.$array_bln[date('n')].'/'.date('Y').Carbon::now()->timestamp,
                 'kepada' => $request->kepada,
                 'pengirim' => $request->pengirim,
                 'perihal' => $request->perihal,
@@ -105,7 +105,6 @@ class SuratKeluarController extends Controller
             ]);
         }else {
             DB::table('surat')->where('id',$id)->update([
-                'kode_surat' => 'PA/SPn/P2/'.$array_bln[date('n')].'/'.date('Y').Carbon::now()->timestamp,
                 'kepada' => $request->kepada,
                 'pengirim' => $request->pengirim,
                 'perihal' => $request->perihal,
